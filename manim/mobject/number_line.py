@@ -435,6 +435,33 @@ class NumberLine(Line):
             return 0
         return len(step_as_str.split(".")[-1])
 
+    def zoom(self, new_range, center=ORIGIN, animations_parameters: dict = {}):
+        new_axis = NumberLine(
+            x_range=new_range,
+            length=self.get_length(),
+            unit_size=self.unit_size,
+            include_ticks=self.include_ticks,
+            tick_size=self.tick_size,
+            numbers_with_elongated_ticks=self.numbers_with_elongated_ticks,
+            longer_tick_multiple=self.longer_tick_multiple,
+            exclude_origin_tick=self.exclude_origin_tick,
+            color=self.color,
+            rotation=self.rotation,
+            stroke_width=self.stroke_width,
+            include_tip=self.include_tip,
+            tip_width=self.tip_width,
+            tip_height=self.tip_height,
+            include_numbers=self.include_numbers,
+            font_size=self.font_size,
+            label_direction=self.label_direction,
+            line_to_number_buff=self.line_to_number_buff,
+            decimal_number_config=self.decimal_number_config,
+            numbers_to_exclude=self.numbers_to_exclude,
+            numbers_to_include=self.numbers_to_include,
+        )
+        # new_axis.put_start_and_end_on(self.start, self.end)
+        return self.animate(**animations_parameters).become(new_axis)
+
 
 class UnitInterval(NumberLine):
     def __init__(
